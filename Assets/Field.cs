@@ -50,9 +50,6 @@ public class Field : MonoBehaviour
 
     public bool IsHitBlock(Vector3 InLocation)
     {
-        // ‚¢‚Á‚½‚ñ’µ‚Ë•Ô‚·
-        // if (InLocation.y < BlockSetUpY + (BlockSize * 0.5)) { return true; }
-
         for (int i = 0; i < BLOCKNUM; i++)
         {
             if (!BlockArray[i].activeSelf) { continue; }

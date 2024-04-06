@@ -100,4 +100,9 @@ public class Player : MonoBehaviour
     {
         _vec.y = BOUND_SPEED;
     }
+
+    public bool IsDead()
+    {
+        return Position.y < -1080 * 0.5f - RADIUS;
+    }
 }

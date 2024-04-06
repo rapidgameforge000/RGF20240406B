@@ -47,7 +47,7 @@ public class Item : MonoBehaviour
     {
         for(int i = 0;i < _objects.Count; i++)
         {
-            _objects[i].transform.Rotate(0f, 0.5f, 0.1f);
+            _objects[i].transform.Rotate(0f, 300 * Time.deltaTime, 60f * Time.deltaTime);
         }
     }
 

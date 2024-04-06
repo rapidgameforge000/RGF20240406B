@@ -9,6 +9,7 @@ public class Field : MonoBehaviour
     private UnityEngine.GameObject _object;
 
     private const int BLOCKNUM = 20;
+    private const int STARTNUM = 15;
     UnityEngine.GameObject BlockPrefab;
     private UnityEngine.GameObject[] BlockArray;
 
@@ -34,6 +35,10 @@ public class Field : MonoBehaviour
         {
             UnityEngine.GameObject instance = UnityEngine.Object.Instantiate(BlockPrefab, new Vector3(BlockSetUpStartX + BlockSetUpDiffX * i, BlockSetUpY, 0), Quaternion.identity);
             BlockArray[i] = instance;
+            if (i > STARTNUM)
+            {
+                BlockArray[i].SetActive(false);
+            }
         }
     }
 
@@ -58,6 +63,23 @@ public class Field : MonoBehaviour
             {
                 // “–‚½‚Á‚½‚Ìˆ—
                 BlockArray[i].SetActive(false);
+
+                int RandIdx = UnityEngine.Random.Range(0, BLOCKNUM);
+                for (int j = 0; j < BLOCKNUM; j++)
+                {
+                    int TargetIdx = (j + RandIdx) % BLOCKNUM;
+                    if (TargetIdx == i)
+                    {
+                        continue;
+                    }
+
+                    if (!BlockArray[TargetIdx].activeSelf)
+                    {
+                        BlockArray[TargetIdx].SetActive(true);
+                        break;
+                    }
+                }
+
                 return true;
             }
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,7 +10,7 @@ public class Player : MonoBehaviour
     public const float SCALE = 250;
     public const float RADIUS = SCALE * 0.176f;
     public const float BOUND_SPEED = 1000f;
-    public const float GRAVITY = 0f;
+    public const float GRAVITY = 1f;
 
     private GameObject _obj = null;
     private Vector3 _vec = Vector3.zero;
@@ -39,6 +40,12 @@ public class Player : MonoBehaviour
         _vec.y -= GRAVITY;
 
         Position += _vec * Time.deltaTime;
+
+        //DebugópÇÃèàóù
+        if (Position.y < -1080 * 0.5f + RADIUS)
+        {
+            Bound();
+        }
     }
 
     public void Bound()

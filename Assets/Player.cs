@@ -81,7 +81,10 @@ public class Player : MonoBehaviour
 
     private void UpdatePos()
     {
-        Position += _vec * Time.deltaTime;
+        Vector3 pos = Position + _vec * Time.deltaTime;
+        if (pos.x > 1920 * 0.5f) pos.x -= 1920;
+        if (pos.x < -1920 * 0.5f) pos.x += 1920;
+        Position = pos;
     }
 
     private void UpdateTrail()

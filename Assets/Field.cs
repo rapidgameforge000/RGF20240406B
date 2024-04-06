@@ -15,7 +15,7 @@ public class Field : MonoBehaviour
 
     private const int BlockSize = 60;
     private const int BlockSetUpY = -500;
-    private const int BlockHeightRange = 400;
+    private const int BlockHeightRange = 200;
     private const int BlockSetUpStartX = -900;
     private const int BlockSetUpDiffX = BlockSize;
 
@@ -36,7 +36,7 @@ public class Field : MonoBehaviour
         int EndIdx = StartIdx + STARTNUM;
         for (int i = 0; i < BLOCKNUM; i++)
         {
-            UnityEngine.GameObject instance = UnityEngine.Object.Instantiate(BlockPrefab, new Vector3(BlockSetUpStartX + BlockSetUpDiffX * i, BlockSetUpY, 0), Quaternion.identity);
+            UnityEngine.GameObject instance = UnityEngine.Object.Instantiate(BlockPrefab, new Vector3(BlockSetUpStartX + BlockSetUpDiffX * i, BlockSetUpY + (BlockHeightRange / 2), 0), Quaternion.identity);
             BlockArray[i] = instance;
             if (i < StartIdx || i >= EndIdx)
             {
@@ -59,7 +59,7 @@ public class Field : MonoBehaviour
 
             Vector3 FromBlock = InLocation - BlockArray[i].transform.position;
             const double BlockSizeHalf = BlockSize * 0.5f;
-            if (Math.Abs(FromBlock.x) < BlockSizeHalf && FromBlock.y < BlockSizeHalf)
+            if (Math.Abs(FromBlock.x) < BlockSizeHalf && FromBlock.y < 0)
             {
                 // “–‚½‚Á‚½Žž‚Ìˆ—
                 BlockArray[i].SetActive(false);

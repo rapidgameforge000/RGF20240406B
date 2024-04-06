@@ -8,15 +8,15 @@ public class Field : MonoBehaviour
 {
     private UnityEngine.GameObject _object;
 
-    private const int BLOCKNUM = 20;
-    private const int STARTNUM = 15;
+    private const int BLOCKNUM = 30;
+    private const int STARTNUM = 12;
     UnityEngine.GameObject BlockPrefab;
     private UnityEngine.GameObject[] BlockArray;
 
     private const int BlockSize = 60;
     private const int BlockSetUpY = -500;
     private const int BlockHeightRange = 400;
-    private const int BlockSetUpStartX = -500;
+    private const int BlockSetUpStartX = -900;
     private const int BlockSetUpDiffX = BlockSize;
 
     // Start is called before the first frame update
@@ -32,11 +32,13 @@ public class Field : MonoBehaviour
         // îzóÒèÄîı
         BlockArray = new UnityEngine.GameObject[BLOCKNUM];
 
+        int StartIdx = (BLOCKNUM - STARTNUM) / 2;
+        int EndIdx = StartIdx + STARTNUM;
         for (int i = 0; i < BLOCKNUM; i++)
         {
             UnityEngine.GameObject instance = UnityEngine.Object.Instantiate(BlockPrefab, new Vector3(BlockSetUpStartX + BlockSetUpDiffX * i, BlockSetUpY, 0), Quaternion.identity);
             BlockArray[i] = instance;
-            if (i > STARTNUM)
+            if (i < StartIdx || i >= EndIdx)
             {
                 BlockArray[i].SetActive(false);
             }

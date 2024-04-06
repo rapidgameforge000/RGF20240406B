@@ -8,14 +8,15 @@ public class Field : MonoBehaviour
 {
     private UnityEngine.GameObject _object;
 
-    private const int BLOCKNUM = 20;
-    private const int STARTNUM = 15;
+    private const int BLOCKNUM = 30;
+    private const int STARTNUM = 12;
     UnityEngine.GameObject BlockPrefab;
     private UnityEngine.GameObject[] BlockArray;
 
     private const int BlockSize = 60;
     private const int BlockSetUpY = -500;
-    private const int BlockSetUpStartX = -500;
+    private const int BlockHeightRange = 400;
+    private const int BlockSetUpStartX = -900;
     private const int BlockSetUpDiffX = BlockSize;
 
     // Start is called before the first frame update
@@ -31,11 +32,13 @@ public class Field : MonoBehaviour
         // îzóÒèÄîı
         BlockArray = new UnityEngine.GameObject[BLOCKNUM];
 
+        int StartIdx = (BLOCKNUM - STARTNUM) / 2;
+        int EndIdx = StartIdx + STARTNUM;
         for (int i = 0; i < BLOCKNUM; i++)
         {
             UnityEngine.GameObject instance = UnityEngine.Object.Instantiate(BlockPrefab, new Vector3(BlockSetUpStartX + BlockSetUpDiffX * i, BlockSetUpY, 0), Quaternion.identity);
             BlockArray[i] = instance;
-            if (i > STARTNUM)
+            if (i < StartIdx || i >= EndIdx)
             {
                 BlockArray[i].SetActive(false);
             }
@@ -50,16 +53,13 @@ public class Field : MonoBehaviour
 
     public bool IsHitBlock(Vector3 InLocation)
     {
-        // Ç¢Ç¡ÇΩÇÒíµÇÀï‘Ç∑
-        // if (InLocation.y < BlockSetUpY + (BlockSize * 0.5)) { return true; }
-
         for (int i = 0; i < BLOCKNUM; i++)
         {
             if (!BlockArray[i].activeSelf) { continue; }
 
             Vector3 FromBlock = InLocation - BlockArray[i].transform.position;
             const double BlockSizeHalf = BlockSize * 0.5f;
-            if (Math.Abs(FromBlock.x) < BlockSizeHalf && Math.Abs(FromBlock.y) < BlockSizeHalf)
+            if (Math.Abs(FromBlock.x) < BlockSizeHalf && FromBlock.y < BlockSizeHalf)
             {
                 // ìñÇΩÇ¡ÇΩéûÇÃèàóù
                 BlockArray[i].SetActive(false);
@@ -76,6 +76,8 @@ public class Field : MonoBehaviour
                     if (!BlockArray[TargetIdx].activeSelf)
                     {
                         BlockArray[TargetIdx].SetActive(true);
+                        float NewBlockHeight = UnityEngine.Random.Range(BlockSetUpY, BlockSetUpY + BlockHeightRange);
+                        BlockArray[TargetIdx].transform.SetPositionAndRotation(new Vector3(BlockArray[TargetIdx].transform.position.x, NewBlockHeight, 0), Quaternion.identity);
                         break;
                     }
                 }

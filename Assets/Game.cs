@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Game : MonoBehaviour
 {
@@ -14,6 +16,14 @@ public class Game : MonoBehaviour
     private UI _ui;
     private Item _item;
     private State _state;
+
+    private readonly int[] SCORE = new int[]
+    {
+        200,//â©
+        500,//ê‘
+        100,//óŒ
+    };
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +45,9 @@ public class Game : MonoBehaviour
                 if (_field.IsHitBlock(_player.Position)) {
                     _player.BoundY();
                 }
-                if (_item.isHitPlayer(_player.Position)) {
-                    UserData.NowScore += 100;
+                int type = _item.getItemType(_player.Position);
+                if (type != -1) {
+                    UserData.NowScore += SCORE[ type ];
                     _ui.aquireItem( );
                 }
                 if (_player.IsDead())

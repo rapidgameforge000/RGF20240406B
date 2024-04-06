@@ -15,6 +15,7 @@ public class Field : MonoBehaviour
 
     private const int BlockSize = 60;
     private const int BlockSetUpY = -500;
+    private const int BlockHeightRange = 400;
     private const int BlockSetUpStartX = -500;
     private const int BlockSetUpDiffX = BlockSize;
 
@@ -56,7 +57,7 @@ public class Field : MonoBehaviour
 
             Vector3 FromBlock = InLocation - BlockArray[i].transform.position;
             const double BlockSizeHalf = BlockSize * 0.5f;
-            if (Math.Abs(FromBlock.x) < BlockSizeHalf && Math.Abs(FromBlock.y) < BlockSizeHalf)
+            if (Math.Abs(FromBlock.x) < BlockSizeHalf && FromBlock.y < BlockSizeHalf)
             {
                 // “–‚½‚Á‚½Žž‚Ìˆ—
                 BlockArray[i].SetActive(false);
@@ -73,6 +74,8 @@ public class Field : MonoBehaviour
                     if (!BlockArray[TargetIdx].activeSelf)
                     {
                         BlockArray[TargetIdx].SetActive(true);
+                        float NewBlockHeight = UnityEngine.Random.Range(BlockSetUpY, BlockSetUpY + BlockHeightRange);
+                        BlockArray[TargetIdx].transform.SetPositionAndRotation(new Vector3(BlockArray[TargetIdx].transform.position.x, NewBlockHeight, 0), Quaternion.identity);
                         break;
                     }
                 }

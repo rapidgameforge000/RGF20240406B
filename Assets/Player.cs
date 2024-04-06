@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
     public const float MAX_SPEED_X = 500f;
     public const float SCALE = 250;
     public const float RADIUS = SCALE * 0.176f;
-    public const float BOUND_SPEED = 1000f;
-    public const float GRAVITY = 1f;
+    public const float BOUND_SPEED = 800f;
+    public const float GRAVITY = 800f;
 
     private GameObject _obj = null;
     private Vector3 _vec = Vector3.zero;
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
             _vec.x += ACCEL_X * Time.deltaTime;
         }
         _vec.x = Mathf.Clamp(_vec.x, -MAX_SPEED_X, MAX_SPEED_X);
-        _vec.y -= GRAVITY;
+        _vec.y -= GRAVITY * Time.deltaTime;
 
         Position += _vec * Time.deltaTime;
 

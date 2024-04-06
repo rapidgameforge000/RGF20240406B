@@ -10,6 +10,8 @@ public class Item : MonoBehaviour
     private const int STRAT_Y_MIN = 0;
     private const int STRAT_Y_MAX = 1080 / 2;
     private UnityEngine.GameObject _object;
+
+
     List<UnityEngine.GameObject> _objects = new List<UnityEngine.GameObject>();
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,19 @@ public class Item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        for(int i = 0;i < _objects.Count; i++)
+        {
+            _objects[i].transform.Rotate(0f, 0.5f, 0.1f);
+        }
+    }
+
+    internal UnityEngine.Vector2 getPos(int idx) {
+        UnityEngine.Vector2 pos = _objects[idx].transform.localPosition;
+        return pos;
+    }
+
+    internal bool isHitPlayer(UnityEngine.Vector2 playerpos)
+    {
+        return true;
     }
 }

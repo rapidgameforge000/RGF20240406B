@@ -46,16 +46,21 @@ public class Field : MonoBehaviour
     public bool IsHitBlock(Vector3 InLocation)
     {
         // ‚¢‚Á‚½‚ñ’µ‚Ë•Ô‚·
-        if (InLocation.y < BlockSetUpY + (BlockSize * 0.5))
-        {
-            return true;
-        }
+        // if (InLocation.y < BlockSetUpY + (BlockSize * 0.5)) { return true; }
 
-        //for (int i = 0; i < BLOCKNUM; i++)
-        //{
-        //    Vector3 FromBlock = InLocation - BlockArray[i].transform.position;
-        //    if (Math.Abs  FromBlock.x < )
-        //}
+        for (int i = 0; i < BLOCKNUM; i++)
+        {
+            if (!BlockArray[i].activeSelf) { continue; }
+
+            Vector3 FromBlock = InLocation - BlockArray[i].transform.position;
+            const double BlockSizeHalf = BlockSize * 0.5f;
+            if (Math.Abs(FromBlock.x) < BlockSizeHalf && Math.Abs(FromBlock.y) < BlockSizeHalf)
+            {
+                // “–‚½‚Á‚½Žž‚Ìˆ—
+                BlockArray[i].SetActive(false);
+                return true;
+            }
+        }
 
         return false;
     }

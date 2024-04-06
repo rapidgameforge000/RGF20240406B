@@ -125,8 +125,8 @@ public class Item : MonoBehaviour
     private void prosessRed(int idx)
     {
         UnityEngine.Vector2 pos = _objects[idx].obj.transform.localPosition;
-        pos.x += (float)_objects[idx].speed;
-        pos.y -= 1.5f;
+        pos.x += (float)_objects[idx].speed * 500 * Time.deltaTime;
+        pos.y -= 1.5f * 500 * Time.deltaTime;
         if (pos.x > OUT_SCREEN_RIGHT)
         {
             pos.x = OUT_SCREEN_LEFT;
@@ -147,7 +147,7 @@ public class Item : MonoBehaviour
     private void prosessYellow(int idx)
     {
         UnityEngine.Vector2 pos = _objects[idx].obj.transform.localPosition;
-        pos.x += (float)_objects[idx].speed;
+        pos.x += (float)_objects[idx].speed*500* Time.deltaTime;
         if(pos.x > OUT_SCREEN_RIGHT)
         {
             pos.x = OUT_SCREEN_LEFT;

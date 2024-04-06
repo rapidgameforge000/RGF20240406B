@@ -43,13 +43,20 @@ public class Field : MonoBehaviour
 
     }
 
-    bool IsHitBlock(Vector3 InLocation)
+    public bool IsHitBlock(Vector3 InLocation)
     {
         // ‚¢‚Á‚½‚ñ’µ‚Ë•Ô‚·
         if (InLocation.y < BlockSetUpY + (BlockSize * 0.5))
         {
             return true;
         }
+
+        //for (int i = 0; i < BLOCKNUM; i++)
+        //{
+        //    Vector3 FromBlock = InLocation - BlockArray[i].transform.position;
+        //    if (Math.Abs  FromBlock.x < )
+        //}
+
         return false;
     }
 

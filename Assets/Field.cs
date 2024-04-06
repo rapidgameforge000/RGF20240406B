@@ -59,7 +59,7 @@ public class Field : MonoBehaviour
 
             Vector3 FromBlock = InLocation - BlockArray[i].transform.position;
             const double BlockSizeHalf = BlockSize * 0.5f;
-            if (Math.Abs(FromBlock.x) < BlockSizeHalf && FromBlock.y < 0)
+            if (Math.Abs(FromBlock.x) < BlockSizeHalf && FromBlock.y < BlockSize)
             {
                 // “–‚½‚Á‚½Žž‚Ìˆ—
                 BlockArray[i].SetActive(false);

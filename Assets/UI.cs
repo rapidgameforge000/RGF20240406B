@@ -21,6 +21,7 @@ public class UI : MonoBehaviour
             i++;
             aaa = 0.0f;
         }
+        UnityEngine.Debug.Log( aaa );
         _score.text = i.ToString();
     }
 }

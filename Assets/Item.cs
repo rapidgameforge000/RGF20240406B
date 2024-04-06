@@ -78,9 +78,9 @@ public class Item : MonoBehaviour
         return pos;
     }
 
-    internal bool isHitPlayer(UnityEngine.Vector2 playerpos)
+    internal int getItemType(UnityEngine.Vector2 playerpos)
     {
-        bool hit = false;
+        int type = -1;
         for (int i = 0; i < _objects.Count; i++)
         {
             UnityEngine.Vector2 pos = _objects[i].obj.transform.localPosition;
@@ -90,9 +90,9 @@ public class Item : MonoBehaviour
             {
                 continue;
             }
-            hit = true;
             float pos_x = UnityEngine.Random.Range(CREATE_X_MIN, CREATE_X_MAX);
             float pos_y = UnityEngine.Random.Range(CREATE_Y_MIN, CREATE_Y_MAX);
+            type = _objects[i].type;
             switch (_objects[i].type)
             {
               
@@ -103,7 +103,7 @@ public class Item : MonoBehaviour
             _objects[i].obj.transform.localPosition = new Vector2(pos_x, pos_y);
             break;
         }
-        return hit ;
+        return type ;
     }
     private void Move(int idx)
     {

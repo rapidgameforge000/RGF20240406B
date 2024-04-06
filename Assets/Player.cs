@@ -9,21 +9,56 @@ public class Player : MonoBehaviour
     public const float BOUND_SPEED = 1300f;
     public const float GRAVITY = 1300f;
 
+    private const int TRAIL_INTERVAL = 20;
+    private const int TRAIL_NUM = 10;
+    private const int HISTORY_NUM = TRAIL_INTERVAL * TRAIL_NUM;
+
+    private struct TrailObjData
+    {
+        public GameObject GObj;
+        public SpriteRenderer Renderer;
+    }
+
     private GameObject _obj = null;
     private Vector3 _vec = Vector3.zero;
+    private TrailObjData[] _trailobjlist = new TrailObjData[TRAIL_NUM];
+    private Vector3[] _history = new Vector3[HISTORY_NUM];
 
-    public Vector3 Position { get => _obj.transform.localPosition; set => _obj.transform.localPosition = value; }
+    public Vector3 Position { get => _obj.transform.localPosition; private set => _obj.transform.localPosition = value; }
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject prefab = Resources.Load<GameObject>("Player");
-        _obj = GameObject.Instantiate<GameObject>(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+        Vector3 pos = Vector3.zero;
+        Quaternion rot = Quaternion.identity;
+
+        for (int i = 0; i < _trailobjlist.Length; i++)
+        {
+            int idx = _trailobjlist.Length - i - 1;//¶¬‡
+            _trailobjlist[idx].GObj = GameObject.Instantiate<GameObject>(prefab, pos, rot);
+            _trailobjlist[idx].Renderer = _trailobjlist[idx].GObj.GetComponent<SpriteRenderer>();
+            _trailobjlist[idx].Renderer.color = new Color(1, 1, 1, Mathf.Lerp(0.5f, 0.0f, (float)idx / (TRAIL_NUM + 1)));
+        }
+        for (int i = 0; i < _history.Length; i++)
+        {
+            _history[i] = pos;
+        }
+
+        _obj = GameObject.Instantiate<GameObject>(prefab, pos, rot);
         _obj.transform.localScale = Vector3.one * SCALE;
     }
 
     // Update is called once per frame
     void Update()
+    {
+        UpdateVec();
+        UpdatePos();
+        UpdateTrail();
+    }
+
+    private void UpdateVec()
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -35,9 +70,27 @@ public class Player : MonoBehaviour
         }
         _vec.x = Mathf.Clamp(_vec.x, -MAX_SPEED_X, MAX_SPEED_X);
         _vec.y -= GRAVITY * Time.deltaTime;
+    }
 
+    private void UpdatePos()
+    {
         Position += _vec * Time.deltaTime;
     }
+
+    private void UpdateTrail()
+    {
+        for (int i = 0; i < _history.Length - 1; i++)
+        {
+            _history[_history.Length - i - 1] = _history[_history.Length - i - 2];
+        }
+        _history[0] = Position;
+
+        for (int i = 0; i < _trailobjlist.Length; i++)
+        {
+            _trailobjlist[i].GObj.transform.localPosition = _history[i * TRAIL_INTERVAL];
+        }
+    }
+
     public void BoundX()
     {
         _vec.x *= -1;

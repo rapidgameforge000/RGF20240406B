@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour
 {
     private const int INIT_CREATE_NUM = 10;
-    private const int STRAT_X_MIN = -1920 / 2;
-    private const int STRAT_X_MAX = 1920 / 2;
-    private const int STRAT_Y_MIN = 0;
-    private const int STRAT_Y_MAX = 1080 / 2;
-    private UnityEngine.GameObject _object;
+    private const int CREATE_X_MIN = -1920 / 2;
+    private const int CREATE_X_MAX = 1920 / 2;
+    private const int CREATE_Y_MIN = 0;
+    private const int CREATE_Y_MAX = 1080 / 2;
 
 
     List<UnityEngine.GameObject> _objects = new List<UnityEngine.GameObject>();
@@ -20,8 +20,8 @@ public class Item : MonoBehaviour
         {
             UnityEngine.GameObject object_star = UnityEngine.Resources.Load<UnityEngine.GameObject>("star");
             UnityEngine.GameObject instance = Instantiate(object_star);
-            float pos_x = UnityEngine.Random.Range(STRAT_X_MIN, STRAT_X_MAX);
-            float pos_y = UnityEngine.Random.Range(STRAT_Y_MIN, STRAT_Y_MAX);
+            float pos_x = UnityEngine.Random.Range(CREATE_X_MIN, CREATE_X_MAX);
+            float pos_y = UnityEngine.Random.Range(CREATE_Y_MIN, CREATE_Y_MAX);
             UnityEngine.Vector2 pos = new Vector2(pos_x, pos_y);
             instance.transform.localPosition = pos;
             _objects.Add(instance);
@@ -44,6 +44,22 @@ public class Item : MonoBehaviour
 
     internal bool isHitPlayer(UnityEngine.Vector2 playerpos)
     {
-        return true;
+        bool hit = false;
+        for (int i = 0; i < _objects.Count; i++)
+        {
+            UnityEngine.Vector2 pos = _objects[i].transform.localPosition;
+            UnityEngine.Vector2 dis = pos - playerpos;
+            float sqr_dis = dis.sqrMagnitude;
+            if(5000 < sqr_dis)
+            {
+                continue;
+            }
+            hit = true;
+            float pos_x = UnityEngine.Random.Range(CREATE_X_MIN, CREATE_X_MAX);
+            float pos_y = UnityEngine.Random.Range(CREATE_Y_MIN, CREATE_Y_MAX);
+            _objects[i].transform.localPosition = new Vector2(pos_x, pos_y);
+            break;
+        }
+        return hit ;
     }
 }

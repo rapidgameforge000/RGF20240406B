@@ -30,7 +30,7 @@ public class Item : MonoBehaviour
                     object_star = UnityEngine.Resources.Load<UnityEngine.GameObject>("StarRed");
                     break;
                 case 2:
-                    object_star = UnityEngine.Resources.Load<UnityEngine.GameObject>("StarBlue");
+                    object_star = UnityEngine.Resources.Load<UnityEngine.GameObject>("StarGreen");
                     break;
             }
             UnityEngine.GameObject instance = Instantiate(object_star);

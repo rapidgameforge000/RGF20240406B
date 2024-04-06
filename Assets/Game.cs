@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -8,6 +6,8 @@ public class Game : MonoBehaviour
     private Field _field;
     private UI _ui;
     private Item _item;
+
+    private int _score;
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +21,12 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_player.Position.y < -400) {
+        if (_field.IsHitBlock(_player.Position)) {
             _player.BoundY();
+        }
+        if (_item.isHitPlayer(_player.Position)) {
+             _score++;
+            _ui.SetScore(_score);
         }
     }
 }

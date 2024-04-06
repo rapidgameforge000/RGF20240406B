@@ -6,10 +6,10 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     private const int INIT_CREATE_NUM = 10;
-    private const int CREATE_X_MIN = -1920 / 2;
-    private const int CREATE_X_MAX = 1920 / 2;
-    private const int CREATE_Y_MIN = 0;
-    private const int CREATE_Y_MAX = 1080 / 2;
+    private const int CREATE_X_MIN = -1920 / 3;
+    private const int CREATE_X_MAX = 1920 / 3;
+    private const int CREATE_Y_MIN = -200;
+    private const int CREATE_Y_MAX = 1080 / 6;
 
 
     List<UnityEngine.GameObject> _objects = new List<UnityEngine.GameObject>();

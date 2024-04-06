@@ -22,7 +22,7 @@ public class Game : MonoBehaviour
     void Update()
     {
         if (_player.Position.y < -400) {
-            _player.Bound();
+            _player.BoundY();
         }
     }
 }

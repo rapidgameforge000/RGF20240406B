@@ -18,7 +18,21 @@ public class Item : MonoBehaviour
     {
         for (int i = 0; i < INIT_CREATE_NUM; i++)
         {
-            UnityEngine.GameObject object_star = UnityEngine.Resources.Load<UnityEngine.GameObject>("star");
+            int type = UnityEngine.Random.Range(0, 3);
+            UnityEngine.GameObject object_star;
+            object_star = UnityEngine.Resources.Load<UnityEngine.GameObject>("StarYellow");
+            switch (type)
+            {
+                case 0:
+                    object_star = UnityEngine.Resources.Load<UnityEngine.GameObject>("StarYellow");
+                    break;
+                case 1:
+                    object_star = UnityEngine.Resources.Load<UnityEngine.GameObject>("StarRed");
+                    break;
+                case 2:
+                    object_star = UnityEngine.Resources.Load<UnityEngine.GameObject>("StarBlue");
+                    break;
+            }
             UnityEngine.GameObject instance = Instantiate(object_star);
             float pos_x = UnityEngine.Random.Range(CREATE_X_MIN, CREATE_X_MAX);
             float pos_y = UnityEngine.Random.Range(CREATE_Y_MIN, CREATE_Y_MAX);

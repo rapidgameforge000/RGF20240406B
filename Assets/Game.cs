@@ -7,8 +7,6 @@ public class Game : MonoBehaviour
     private UI _ui;
     private Item _item;
 
-    private int _score;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +23,7 @@ public class Game : MonoBehaviour
             _player.BoundY();
         }
         if (_item.isHitPlayer(_player.Position)) {
-             _score++;
-            _ui.SetScore(_score);
+            _ui.aquireItem( );
         }
     }
 }

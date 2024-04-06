@@ -50,7 +50,7 @@ public class Item : MonoBehaviour
             UnityEngine.Vector2 pos = _objects[i].transform.localPosition;
             UnityEngine.Vector2 dis = pos - playerpos;
             float sqr_dis = dis.sqrMagnitude;
-            if(100 < sqr_dis)
+            if(5000 < sqr_dis)
             {
                 continue;
             }

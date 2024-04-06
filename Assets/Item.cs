@@ -48,13 +48,15 @@ public class Item : MonoBehaviour
             star.type = type;
             star.obj = instance;
             star.alive = true;
+            float speed = UnityEngine.Random.Range(1, 10);
+
             if (UnityEngine.Random.Range(0, 10) % 2 == 0)
             {
-                star.speed = -1;
+                star.speed = speed/10;
             }
             else
             {
-                star.speed = 1;
+                star.speed =-speed/10; 
             }
             _objects.Add(star);
         }

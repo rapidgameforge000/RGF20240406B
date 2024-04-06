@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     private const int TRAIL_NUM = 10;
     private const int HISTORY_NUM = TRAIL_INTERVAL * TRAIL_NUM;
 
+    private const float COLOR_R = 0.1f;
+    private const float COLOR_G = 1.0f;
+    private const float COLOR_B = 1.0f;
+
     private struct TrailObjData
     {
         public GameObject GObj;
@@ -39,7 +43,7 @@ public class Player : MonoBehaviour
             int idx = _trailobjlist.Length - i - 1;//ê∂ê¨èá
             _trailobjlist[idx].GObj = GameObject.Instantiate<GameObject>(prefab, pos, rot);
             _trailobjlist[idx].Renderer = _trailobjlist[idx].GObj.GetComponent<SpriteRenderer>();
-            _trailobjlist[idx].Renderer.color = new Color(1, 1, 1, Mathf.Lerp(0.5f, 0.0f, (float)idx / (TRAIL_NUM + 1)));
+            _trailobjlist[idx].Renderer.color = new Color(COLOR_R, COLOR_G, COLOR_B, Mathf.Lerp(0.5f, 0.0f, (float)idx / (TRAIL_NUM + 1)));
         }
         for (int i = 0; i < _history.Length; i++)
         {
@@ -48,6 +52,9 @@ public class Player : MonoBehaviour
 
         _obj = GameObject.Instantiate<GameObject>(prefab, pos, rot);
         _obj.transform.localScale = Vector3.one * SCALE;
+
+        var renderer = _obj.GetComponent<SpriteRenderer>();
+        renderer.color = new Color(COLOR_R, COLOR_G, COLOR_B, 1f);
     }
 
     // Update is called once per frame

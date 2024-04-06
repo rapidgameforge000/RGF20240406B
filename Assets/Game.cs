@@ -18,11 +18,12 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UserData.NowScore = 0;
+        _state = State.GamePlay;
         _player = GetComponent<Player>();
         _field = GetComponent<Field>();
         _ui = GetComponent<UI>();
         _item = GetComponent<Item>();
-        _state = State.GamePlay;
     }
 
     // Update is called once per frame
@@ -35,11 +36,16 @@ public class Game : MonoBehaviour
                     _player.BoundY();
                 }
                 if (_item.isHitPlayer(_player.Position)) {
+                    UserData.NowScore += 100;
                     _ui.aquireItem( );
                 }
                 if (_player.IsDead())
                 {
                     _ui.gameOver();
+                    if (UserData.NowScore > UserData.HighScore)
+                    {
+                        UserData.HighScore = UserData.NowScore;
+                    }
                     Time.timeScale = 0.0f;
                     _state = State.GameOver;
                 }

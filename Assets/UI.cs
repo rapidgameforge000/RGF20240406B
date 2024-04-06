@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    public TextMeshProUGUI _score;
+    private TextMeshProUGUI _score_text;
+    private int _score;
 
-    public void SetScore(int score) {
-        _score.text = score.ToString();
+
+    public void aquireItem() {
+        _score += 100;
+        _score_text.text = _score.ToString();
     }
 }

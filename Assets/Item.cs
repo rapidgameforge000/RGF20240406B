@@ -10,6 +10,10 @@ public class Item : MonoBehaviour
     private const int CREATE_X_MAX = 1920 / 3;
     private const int CREATE_Y_MIN = -200;
     private const int CREATE_Y_MAX = 1080 / 6;
+    private const int OUT_SCREEN_LEFT = -(1920 + 100);
+    private const int OUT_SCREEN_RIGHT = 1920 + 100;
+    private const int OUT_SCREEN_HIGHT = 1080 + 100;
+    private const int OUT_SCREEN_UNDER = -(1080+100);
 
     struct Star {
         public GameObject obj;
@@ -48,7 +52,7 @@ public class Item : MonoBehaviour
             star.type = type;
             star.obj = instance;
             star.alive = true;
-            float speed = UnityEngine.Random.Range(1, 10);
+            float speed = UnityEngine.Random.Range(1, 20);
 
             if (UnityEngine.Random.Range(0, 10) % 2 == 0)
             {
@@ -123,18 +127,18 @@ public class Item : MonoBehaviour
         UnityEngine.Vector2 pos = _objects[idx].obj.transform.localPosition;
         pos.x += (float)_objects[idx].speed;
         pos.y -= 1.5f;
-        if (pos.x > 1920 / 2 + 100)
+        if (pos.x > OUT_SCREEN_RIGHT)
         {
-            pos.x = -(1920 / 2 + 100);
+            pos.x = OUT_SCREEN_LEFT;
         }
 
-        if (pos.x < -(1920 / 2 + 100))
+        if (pos.x < OUT_SCREEN_LEFT)
         {
-            pos.x = 1920 / 2 + 100;
+            pos.x = OUT_SCREEN_RIGHT;
         }
-        if (pos.y < -(1920 / 2 + 100))
+        if (pos.y < OUT_SCREEN_UNDER)
         {
-            pos.y = 1920 / 2 + 100;
+            pos.y = OUT_SCREEN_HIGHT;
 
         }
         _objects[idx].obj.transform.localPosition = pos;
@@ -144,14 +148,14 @@ public class Item : MonoBehaviour
     {
         UnityEngine.Vector2 pos = _objects[idx].obj.transform.localPosition;
         pos.x += (float)_objects[idx].speed;
-        if(pos.x > 1920 / 2 + 100)
+        if(pos.x > OUT_SCREEN_RIGHT)
         {
-            pos.x = -(1920 / 2 + 100);
+            pos.x = OUT_SCREEN_LEFT;
         }
 
-        if (pos.x < -(1920 / 2 + 100))
+        if (pos.x < OUT_SCREEN_LEFT)
         {
-            pos.x = 1920 / 2 + 100;
+            pos.x = OUT_SCREEN_RIGHT;
         }
         _objects[idx].obj.transform.localPosition = pos;
     }
